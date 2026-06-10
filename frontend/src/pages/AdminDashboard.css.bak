@@ -1,0 +1,97 @@
+/* AdminDashboard.css */
+
+/* Page Layout */
+.container-fluid {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Dashboard Title */
+h2 {
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+/* Row Layout */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Column Layout */
+.col-md-3 {
+  flex: 1 1 180px;
+  max-width: 240px;
+}
+
+/* Card Styling */
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+  box-shadow: none;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #2563eb;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Card Headings */
+.card h5 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Card Values */
+.card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .col-md-3 {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 576px) {
+  .container-fluid {
+    padding: 1.25rem;
+  }
+  .col-md-3 {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}

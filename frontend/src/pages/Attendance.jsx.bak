@@ -1,0 +1,59 @@
+import { useEffect, useState } from "react";
+import API from "../services/api";
+import AdminSidebar from "../components/AdminSidebar";
+
+function Attendance() {
+  const [attendance, setAttendance] = useState([]);
+
+  useEffect(() => {
+    fetchAttendance();
+  }, []);
+
+  const fetchAttendance = async () => {
+    try {
+      const res = await API.get("/attendance/all");
+      setAttendance(res.data.attendance);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div style={{ display: "flex" }}>
+      <AdminSidebar />
+
+      <div className="container-fluid p-4">
+        <h2>Attendance Records</h2>
+
+        <table className="table table-bordered table-striped mt-3">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Intern Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {attendance.map((item, index) => (
+              <tr key={item._id}>
+                <td>{index + 1}</td>
+                <td>{item.internId?.name}</td>
+                <td>{item.internId?.email}</td>
+                <td>{item.status}</td>
+                <td>
+                  {new Date(item.date).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  );
+}
+
+export default Attendance;

@@ -1,0 +1,66 @@
+import { useEffect, useState } from "react";
+import API from "../services/api";
+import AdminSidebar from "../components/AdminSidebar";
+import "./AdminDashboard.css";
+
+
+function AdminDashboard() {
+  const [dashboard, setDashboard] = useState({});
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+  const fetchDashboard = async () => {
+    try {
+      const res = await API.get("/dashboard/admin");
+      setDashboard(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div style={{ display: "flex" }}>
+      <AdminSidebar />
+
+      <div className="container-fluid p-4">
+        <h2 className="mb-4">Admin Dashboard</h2>
+
+        <div className="row">
+
+          <div className="col-md-3">
+            <div className="card shadow p-3">
+              <h5>Total Interns</h5>
+              <h2>{dashboard.totalInterns || 0}</h2>
+            </div>
+          </div>
+
+          <div className="col-md-3">
+            <div className="card shadow p-3">
+              <h5>Attendance</h5>
+              <h2>{dashboard.todayAttendance || 0}</h2>
+            </div>
+          </div>
+
+          <div className="col-md-3">
+            <div className="card shadow p-3">
+              <h5>Pending Leaves</h5>
+              <h2>{dashboard.pendingLeaves || 0}</h2>
+            </div>
+          </div>
+
+          <div className="col-md-3">
+            <div className="card shadow p-3">
+              <h5>Activities</h5>
+              <h2>{dashboard.totalActivities || 0}</h2>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default AdminDashboard;

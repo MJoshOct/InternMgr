@@ -1,0 +1,52 @@
+import { Link } from "react-router-dom";
+
+function AdminSidebar() {
+  return (
+    <div
+      style={{
+        width: "250px",
+        minHeight: "100vh",
+        backgroundColor: "#212529",
+        color: "white",
+        padding: "20px",
+      }}
+    >
+      <h3>Admin Panel</h3>
+      <hr />
+
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        <li className="mb-3">
+          <Link to="/admin" style={{ color: "white" }}>
+            Dashboard
+          </Link>
+        </li>
+
+        <li className="mb-3">
+          <Link to="/attendance" style={{ color: "white" }}>
+            Attendance
+          </Link>
+        </li>
+
+        <li className="mb-3">
+          <Link to="/leave" style={{ color: "white" }}>
+            Leave Requests
+          </Link>
+        </li>
+
+        <li className="mb-3">
+          <Link to="/activities" style={{ color: "white" }}>
+            Activities
+          </Link>
+        </li>
+
+        <li className="mb-3">
+          <Link to="/reports" style={{ color: "white" }}>
+            Reports
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+export default AdminSidebar;

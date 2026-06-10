@@ -1,0 +1,93 @@
+import { useEffect, useState } from "react";
+import API from "../services/api";
+import AdminSidebar from "../components/AdminSidebar";
+
+function ViewInterns() {
+  const [interns, setInterns] = useState([]);
+
+  useEffect(() => {
+    fetchInterns();
+  }, []);
+
+  const fetchInterns = async () => {
+    try {
+      const res = await API.get("/auth/interns");
+      setInterns(res.data.interns);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteIntern = async (id) => {
+    try {
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this intern?"
+      );
+
+      if (!confirmDelete) return;
+
+      await API.delete(`/auth/intern/${id}`);
+
+      alert("Intern Deleted Successfully");
+
+      fetchInterns();
+    } catch (error) {
+      console.log(error);
+      alert("Error Deleting Intern");
+    }
+  };
+
+  return (
+    <div style={{ display: "flex" }}>
+      <AdminSidebar />
+
+      <div className="container-fluid p-4">
+        <h2>All Interns</h2>
+
+        <table className="table table-bordered table-striped mt-3">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Role</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {interns.length > 0 ? (
+              interns.map((intern, index) => (
+                <tr key={intern._id}>
+                  <td>{index + 1}</td>
+                  <td>{intern.name}</td>
+                  <td>{intern.email}</td>
+                  <td>{intern.department}</td>
+                  <td>{intern.role}</td>
+
+                  <td>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => deleteIntern(intern._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="text-center">
+                  No Interns Found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+export default ViewInterns;
